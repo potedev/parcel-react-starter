@@ -3,7 +3,7 @@ import { InputGroup } from '../components/inputGroup'
 import { SubmitButton } from '../components/submitButton'
 import api from '../../utils/api'
 
-export const Register = () => {
+export const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState(null)
@@ -19,7 +19,7 @@ export const Register = () => {
 
         try {
             setIsLoading(true)
-            const axiosResult = await api.post('users/', { email, password });
+            const axiosResult = await api.post('users/authenticate', { email, password });
             console.log('result with an axios method', axiosResult.data);
             setIsLoading(false)
         }
@@ -33,13 +33,13 @@ export const Register = () => {
 
     return (
         <div>
-            <h1>Register</h1>
+            <h1>Login</h1>
             <p style={{ color: "red" }}>{error && error}</p>
             {isLoading && <p>Loading...</p>}
             <form onSubmit={handleSubmit}>
                 <InputGroup handleChange={setEmail} isValid={fieldError !== "email"} label="Email" type="email" required />
                 <InputGroup handleChange={setPassword} isValid={fieldError !== "password"} label="Password" type="password" required={true} minLength="1" maxLength="15" />
-                <SubmitButton name="S'enregistrer" />
+                <SubmitButton name="Se connecter" />
             </form>
         </div>
     )
